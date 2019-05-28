@@ -4,6 +4,7 @@ import com.google.firebase.database.Exclude;
 
 public class Upload {
     private String mName;
+    private String mDeskripsi;
     private String mImageUrl;
     private String mKey;
 
@@ -11,17 +12,28 @@ public class Upload {
         //empty constructor needed
     }
 
-    public Upload(String name, String imageUrl) {
+    public Upload(String name, String deskripsi, String imageUrl) {
         if (name.trim().equals("")) {
             name = "No Name";
+        }if (deskripsi.trim().equals("")){
+            deskripsi = "No desc";
         }
 
         mName = name;
+        mDeskripsi = deskripsi;
         mImageUrl = imageUrl;
     }
 
     public String getName() {
         return mName;
+    }
+
+    public String getDeskripsi() {
+        return mDeskripsi;
+    }
+
+    public void setDeskripsi(String mDeskripsi) {
+        this.mDeskripsi = mDeskripsi;
     }
 
     public void setName(String name) {

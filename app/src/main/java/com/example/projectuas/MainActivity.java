@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mButtonUpload;
     private TextView mTextViewShowUploads;
     private EditText mEditTextFileName;
+    private EditText mDeskripsi;
     private ImageView mImageView;
     private ProgressBar mProgressBar;
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
+//    private DatabaseReference myReference;
 
     private StorageTask mUploadTask;
 
@@ -58,9 +60,11 @@ public class MainActivity extends AppCompatActivity {
         mEditTextFileName = findViewById(R.id.edit_text_file_name);
         mImageView = findViewById(R.id.image_view);
         mProgressBar = findViewById(R.id.progress_bar);
+        mDeskripsi = findViewById(R.id.deskripsi);
 
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+//        myReference = FirebaseDatabase.getInstance().getReference("uploads");
 
         mButtonChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,10 +142,12 @@ public class MainActivity extends AppCompatActivity {
                             Uri downloadUrl = urlTask.getResult();
 
                             Log.d(TAG, "onSuccess: firebase download url: " + downloadUrl.toString());
-                            Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),downloadUrl.toString());
+                            Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),mDeskripsi.getText().toString().trim(),downloadUrl.toString());
+//                            Upload upload2 = new Upload(mDeskripsi.getText().toString().trim(),downloadUrl.toString());
 
                             String uploadId = mDatabaseRef.push().getKey();
                             mDatabaseRef.child(uploadId).setValue(upload);
+//                            mDatabaseRef.child(uploadId).setValue(upload);
 
                         }
                     })
