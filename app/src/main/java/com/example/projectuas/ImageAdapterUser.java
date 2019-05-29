@@ -11,32 +11,33 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.projectuas.ImageAdapterUser;
+import com.example.projectuas.R;
+import com.example.projectuas.Upload;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
+public class ImageAdapterUser extends RecyclerView.Adapter<ImageAdapterUser.ImageViewHolder> {
     private Context mContext;
     private List<Upload> mUploads;
-    private OnItemClickListener mListener;
+    private ImageAdapterUser.OnItemClickListener mListener;
 
-    public ImageAdapter(Context context, List<Upload> uploads) {
+    public ImageAdapterUser(Context context, List<Upload> uploads) {
         mContext = context;
         mUploads = uploads;
     }
 
     @Override
-    public ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ImageAdapterUser.ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.image_item, parent, false);
-        return new ImageViewHolder(v);
+        return new ImageAdapterUser.ImageViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(ImageViewHolder holder, int position) {
+    public void onBindViewHolder(ImageAdapterUser.ImageViewHolder holder, int position) {
         Upload uploadCurrent = mUploads.get(position);
         holder.textViewName.setText(uploadCurrent.getName());
-        holder.textDeskripsi.setText(uploadCurrent.getDeskripsi());
         Picasso.with(mContext)
                 .load(uploadCurrent.getImageUrl())
                 .placeholder(R.mipmap.ic_launcher)
@@ -51,16 +52,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
-            View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
+            View.OnCreateContextMenuListener {
         public TextView textViewName;
-        public TextView textDeskripsi;
         public ImageView imageView;
 
         public ImageViewHolder(View itemView) {
             super(itemView);
 
             textViewName = itemView.findViewById(R.id.text_view_name);
-            textDeskripsi = itemView.findViewById(R.id.text_view_deskripsi);
             imageView = itemView.findViewById(R.id.image_view_upload);
 
             itemView.setOnClickListener(this);
@@ -72,50 +71,24 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             if (mListener != null) {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    mListener.onItemClick(position);
+                    //mListener.onItemClick(position);
                 }
             }
         }
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle("Select Action");
-            MenuItem doWhatever = menu.add(Menu.NONE, 1, 1, "Update");
-            MenuItem delete = menu.add(Menu.NONE, 2, 2, "Delete");
 
-            doWhatever.setOnMenuItemClickListener(this);
-            delete.setOnMenuItemClickListener(this);
         }
 
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            if (mListener != null) {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-
-                    switch (item.getItemId()) {
-                        case 1:
-                            mListener.onWhatEverClick(position);
-                            return true;
-                        case 2:
-                            mListener.onDeleteClick(position);
-                            return true;
-                    }
-                }
-            }
-            return false;
-        }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
 
-        void onWhatEverClick(int position);
-
-        void onDeleteClick(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(ImageAdapterUser.OnItemClickListener listener) {
         mListener = listener;
     }
 }
+

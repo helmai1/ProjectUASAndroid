@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ImageActivity">
+    <item
+        android:id="@+id/CompanyProfileAdmin"
+        android:orderInCategory="100"
+        android:title="CompanyProfile"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/logout_itemAdmin"
+        android:orderInCategory="100"
+        android:title="logout"
+        app:showAsAction="never" />
+</menu>
